@@ -32,13 +32,20 @@ You don't want to spam `stdout` for testing. You want to `batch` data or you wan
 
 `require('stdout-monkey')([callback])`
 
-Each call to the monkey returns a *monkeypatched* version of `stdout` that will be called instead of the write method. The given function with the following methods.
+Each call to the monkey returns a *monkeypatched* version of `stdout` disabling it by default. The given function with the following methods.
 
  - `patch`: patch `process.stdout.write` and optionaly give `str, enc, cb`
  - `restore` : unpatch `process.stdout.write`, leaves it fresh as a daisy.
  - `listen`: patch `process.stdout.write` without interfering.
  - `log` : a `console.log` that does not call the `callback`
  - `write` : the original `process.stdout.write` that does not call the `callback`
+
+All methods are chainable.
+
+### monkey properties
+
+The `monkey`, besides the methods above has a `state` property indicating if
+there `process.stdout.write` was `patched` or if the `monkey` is has use the `listen` method.
 
 ### inspirated and based on
 
