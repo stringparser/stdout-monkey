@@ -1,0 +1,31 @@
+{
+  "name": "stdout-monkey",
+  "description": "who said bananas? was it you?",
+  "version": "1.0.12",
+  "repository": "stringparser/stdout-monkey",
+  "homepage": "https://github.com/stringparser/stdout-monkey",
+  "author": "Javier Carrillo <stringparser@gmail.com>",
+  "tags": [
+    "patch",
+    "stdout",
+    "bananas",
+    "restore",
+    "log",
+    "write",
+    "listen"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "jshint": "^2.5.5",
+    "jshint-stylish": "^0.4.0",
+    "mocha": "^1.21.4",
+    "should": "~4.0.4"
+  },
+  "scripts": {
+    "lint": "jshint test index.js --reporter node_modules/jshint-stylish/stylish.js --exclude node_modules",
+    "test": "npm run-script lint && mocha --reporter spec"
+  },
+  "dependencies": {
+    "utils-type": "^0.1.33"
+  }
+}
