@@ -14,10 +14,10 @@ Monkeypatch for stdout with knobs. For testing purposes, or other things.
 ## example
 
 ```js
-var monkey = require('stdout-monkey');
+var stdout = require('stdout-monkey');
 
-var stdout = monkey(function(str, enc, cb){
-  str = 'I want more bananas!'
+var monkey = stdout(function(str, enc, cb){
+  this.log('I want more bananas!');
 })
 
 console.log('Hey, stop it!');
