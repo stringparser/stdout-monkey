@@ -34,9 +34,11 @@ You don't want to spam `stdout` for testing. You want to `batch` data or you wan
 
 Each call to the monkey returns a *monkeypatched* version of `stdout` disabling it by default. Instead the given `callback` is called. The returned monkey instance has the following methods.
 
- - `patch`: patch `process.stdout.write` and disable it. Use the given callback instead.
- - `listen`: patch `process.stdout.write` but only to include the callback, calling it after the `write`.
- - `restore`: back to normal. Normal `stdout`s and `console.log`s is what I'm saying.
+Below when I write `stdout` I really want to write `process.stdout.write`.
+
+ - `patch`: patch `stdout` and disable it. Use the given callback instead.
+ - `listen`: patch `stdout` only to include the callback.
+ - `restore`: normal `stdout`s and `console.log`s is what I'm saying.
  - `write`: use the original `process.stdout.write` even if it was patched.
  - `log` : use `console.log` function even if it was patched.
 
@@ -44,14 +46,14 @@ All methods are chainable.
 
 ### monkey instance properties
 
-The `monkey`, has a `state` property indicating if `process.stdout.write` was `patched` or if the `monkey` used the `restore` or `listen` methods.
+The `monkey` has a `state` property indicating if `process.stdout.write` was `patched` or if the he used the `restore` or `listen` methods.
 
 NOTE: the `state` is not changed when calling the `log` or `write` methods.
 
 ### inspirated and based on
 
  - [a gist](https://gist.github.com/pguillory/729616)
- - [a modified version](https://gist.github.com/stringparser/b539b8cfd5769542037d)
+ - [a modified version of the gist](https://gist.github.com/stringparser/b539b8cfd5769542037d)
 
 ## test
 
