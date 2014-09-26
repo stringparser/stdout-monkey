@@ -34,11 +34,11 @@ You don't want to spam `stdout` for testing. You want to `batch` data or you wan
 
 Each call to the monkey returns a *monkeypatched* version of `stdout` disabling it by default. Instead the given `callback` is called. The returned monkey instance has the following methods.
 
- - `patch`: patch `process.stdout.write`
- - `listen`: patch `process.stdout.write` without interfering.
- - `restore`: unpatch `process.stdout.write` leaving it fresh as a daisy.
- - `write` : original `process.stdout.write`
- - `log` : the normal `console.log` function
+ - `patch`: patch `process.stdout.write` and disable it. Use the given callback instead.
+ - `listen`: patch `process.stdout.write` but only to include the callback, calling it after the `write`.
+ - `restore`: back to normal. Normal `stdout`s and `console.log`s is what I'm saying.
+ - `write`: use the original `process.stdout.write` even if it was patched.
+ - `log` : use `console.log` function even if it was patched.
 
 All methods are chainable.
 
