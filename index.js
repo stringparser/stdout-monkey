@@ -22,7 +22,7 @@ function monkey(callback){
     },
     restore : function(data, enc, cb){
       process.stdout.write = write;
-      this.state = { };
+      this.state = { restored : true };
       return data ? this.write(data, enc, cb) : this;
     },
     listen : function(){
