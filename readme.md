@@ -32,21 +32,21 @@ You don't want to spam `stdout` for testing. You want to `batch` data or you wan
 
 `require('stdout-monkey')([callback])`
 
-Each call to the monkey returns a *monkeypatched* version of `stdout` disabling it by default. The given function with the following methods.
+Each call to the monkey returns a *monkeypatched* version of `stdout` disabling it by default. Instead the given `callback` is called. The returned monkey instance has the following methods.
 
- - `patch`: patch `process.stdout.write` and optionaly give `str, enc, cb`
- - `restore` : unpatch `process.stdout.write`, leaves it fresh as a daisy.
+ - `patch`: patch `process.stdout.write`
  - `listen`: patch `process.stdout.write` without interfering.
- - `log` : a `console.log` that does not call the `callback`
- - `write` : the original `process.stdout.write` that does not call the `callback`
+ - `restore`: unpatch `process.stdout.write` leaving it fresh as a daisy.
+ - `write` : original `process.stdout.write`
+ - `log` : the normal `console.log` function
 
 All methods are chainable.
 
-### monkey properties
+### monkey instance properties
 
-The `monkey`, has a `state` property indicating if `process.stdout.write` was `patched` or if the `monkey` is has used the `listen` method.
+The `monkey`, has a `state` property indicating if `process.stdout.write` was `patched` or if the `monkey` used the `restore` or `listen` methods.
 
-NOTE: the `state` is not changed when the `log` or `write` methods are used.
+NOTE: the `state` is not changed when calling the `log` or `write` methods.
 
 ### inspirated and based on
 
