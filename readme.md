@@ -46,7 +46,7 @@ All methods are chainable.
 
 ### monkey instance properties
 
-The `monkey` has a `state` property indicating if `process.stdout.write` was `patched` or if the he used the `restore` or `listen` methods.
+The `monkey` has a `state` property indicating if `process.stdout.write` was `patched` or if he used the `restore` or `listen` methods.
 
 NOTE: the `state` is not changed when calling the `log` or `write` methods.
 
