@@ -14,17 +14,20 @@ function monkey(callback){
   return ({
     patch : function(data, enc, cb){
       var self = this;
+      this.state = { patched : true };
       process.stdout.write = function(str, enc, cb){
         callback.call(self, str, enc, cb);
       };
-      return cb ? this.write(data, enc, cb) : this;
+      return data ? this.write(data, enc, cb) : this;
     },
-    restore : function(data, cb){
+    restore : function(data, enc, cb){
       process.stdout.write = write;
-      return cb ? this.write(data, undefined, cb) : this;
+      this.state = { };
+      return data ? this.write(data, enc, cb) : this;
     },
     listen : function(){
       var self = this;
+      this.state = { patched : true, listening : true };
       process.stdout.write = function(str, enc, cb){
         write.call(scope, str, enc, cb);
         callback.call(self, str, enc, cb);
