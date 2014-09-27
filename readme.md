@@ -30,55 +30,59 @@ You don't want to spam `stdout` for testing. You want to `batch` data or you wan
 
 ### api
 
-`require('stdout-monkey')([callback])`
-
-Each call to the monkey returns a *monkeypatched* version of `stdout` disabling it by default. Instead the given `callback` is called. The returned monkey instance has the following methods.
-
 Below when I write `stdout` I really want to write `process.stdout.write`.
 
-#### `monkey.patch([callback])`
+```
+var monkey = require('stdout-monkey')([callback])
+```
 
-Default method returned from the module.
-Patch `stdout` and disable it. Use the given callback instead.
+Calling the module with a function returns a *monkeypatched* `stdout` disabled by default. Instead the arguments are passed to the given `callback`. 
 
+Note: that is not really accurate since the `object` is not a `writable` stream.
+
+#### monkey.patch([callback])
+
+Default method returned from the module. Patch `stdout` and disable it. Use the given callback instead.
 Returns the `monkey` instance.
 
-#### `monkey.restore([data], [enc], [cb])`
+#### monkey.restore([data], [enc], [cb])
 
-Restore `stdout`s and `console.log`s is what I'm saying. Optionaly write something.
+Restore `stdout`. Optionaly write something.
 
-#### `monkey.listen([callback])`
+#### monkey.listen([callback])
 
-`stdout` is patched only to include the `callback` after the `write`. `stdout` will work as normal, and you can "spy" what is written.
+Patch `stdout` but only to include the `callback`. `stdout` will work as normal, you can *spy* but not *modify* what is written.
 
-The arguments passed to the `callback` are the [same of `stdout`](http://nodejs.org/api/stream.html#stream_class_stream_writable). `this` is set to the `monkey` instance.
+#### monkey.write(data, [enc], [cb])
 
-#### `monkey.write(data, [enc], [cb])`
+Use the original `process.stdout.write` even if it was patched.
 
-use the original `process.stdout.write` even if it was patched.
+#### monkey.log([arguments])
 
-#### `monkey.log([arguments])`
-
-use `console.log` function even if `stdout` was patched.
+Use `console.log` even if `stdout` was patched.
 
 <hr>
 
 All above methods are chainable.
 
-### monkey instance properties
+### properties
 
 The `monkey` has a `state` property indicating if `process.stdout.write` was `patched` or if he used the `restore` or `listen` methods.
 
 NOTE: the `state` is not changed when calling the `log` or `write` methods.
+
+## test
+
+    npm test
 
 ### inspirated and based on
 
  - [a gist](https://gist.github.com/pguillory/729616)
  - [a modified version of the gist](https://gist.github.com/stringparser/b539b8cfd5769542037d)
 
-## test
+### todo
 
-    npm test
+ - [ ] make the `monkey` a `through` stream.
 
 ### license
 
