@@ -12,22 +12,24 @@ function monkey(callback){
   callback = type(callback).function || function(){ };
 
   return ({
-    patch : function(data, enc, cb){
+    patch : function(cb){
       var self = this;
       this.state = { patched : true };
+      callback = type(cb).function || callback;
       process.stdout.write = function(str, enc, cb){
         callback.call(self, str, enc, cb);
       };
-      return data ? this.write(data, enc, cb) : this;
+      return this;
     },
     restore : function(data, enc, cb){
       process.stdout.write = write;
       this.state = { restored : true };
       return data ? this.write(data, enc, cb) : this;
     },
-    listen : function(){
+    listen : function(cb){
       var self = this;
       this.state = { patched : true, listening : true };
+      callback = type(cb).function || callback;
       process.stdout.write = function(str, enc, cb){
         write.call(scope, str, enc, cb);
         callback.call(self, str, enc, cb);
@@ -45,9 +47,10 @@ function monkey(callback){
       }
       console.log.apply(console, args);
 
-      return this.patch();
+      return this;
     },
     write : function(str, enc, cb){
+      callback = type(cb).function || callback;
       write.call(scope, str, enc, cb);
       return this;
     }

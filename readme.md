@@ -36,13 +36,34 @@ Each call to the monkey returns a *monkeypatched* version of `stdout` disabling 
 
 Below when I write `stdout` I really want to write `process.stdout.write`.
 
- - `patch`: patch `stdout` and disable it. Use the given callback instead.
- - `listen`: patch `stdout` only to include the callback.
- - `restore`: normal `stdout`s and `console.log`s is what I'm saying.
- - `write`: use the original `process.stdout.write` even if it was patched.
- - `log` : use `console.log` function even if it was patched.
+#### `monkey.patch([callback])`
 
-All methods are chainable.
+Default method returned from the module.
+Patch `stdout` and disable it. Use the given callback instead.
+
+Returns the `monkey` instance.
+
+#### `monkey.restore([data], [enc], [cb])`
+
+Restore `stdout`s and `console.log`s is what I'm saying. Optionaly write something.
+
+#### `monkey.listen([callback])`
+
+`stdout` is patched only to include the `callback` after the `write`. `stdout` will work as normal, and you can "spy" what is written.
+
+The arguments passed to the `callback` are the [same of `stdout`](http://nodejs.org/api/stream.html#stream_class_stream_writable). `this` is set to the `monkey` instance.
+
+#### `monkey.write(data, [enc], [cb])`
+
+use the original `process.stdout.write` even if it was patched.
+
+#### `monkey.log([arguments])`
+
+use `console.log` function even if `stdout` was patched.
+
+<hr>
+
+All above methods are chainable.
 
 ### monkey instance properties
 
