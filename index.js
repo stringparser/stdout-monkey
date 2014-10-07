@@ -31,8 +31,8 @@ function monkey(callback){
       this.state = { patched : true, listening : true };
       callback = type(cb).function || callback;
       process.stdout.write = function(str, enc, cb){
-        write.call(scope, str, enc, cb);
         callback.call(self, str, enc, cb);
+        write.call(scope, str, enc, cb);
       };
       return this;
     },
