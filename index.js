@@ -50,7 +50,6 @@ function monkey(callback){
       return this;
     },
     write : function(str, enc, cb){
-      callback = type(cb).function || callback;
       write.call(scope, str, enc, cb);
       return this;
     }

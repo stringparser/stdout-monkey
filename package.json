@@ -16,16 +16,16 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "jshint": "^2.5.5",
-    "jshint-stylish": "^0.4.0",
-    "mocha": "^1.21.4",
-    "should": "~4.0.4"
+    "jshint": "*",
+    "jshint-stylish": "*",
+    "mocha": "*",
+    "should": "*"
   },
   "scripts": {
     "lint": "jshint test index.js --reporter node_modules/jshint-stylish/stylish.js --exclude node_modules",
     "test": "npm run-script lint && mocha --reporter spec"
   },
   "dependencies": {
-    "utils-type": "^0.1.33"
+    "utils-type": "^0.5.2"
   }
 }
